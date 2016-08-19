@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}{{spool.prefix}} | {{errorcode}} | {{errormessage}}{% endblock title %}
+
+{% block content %}
+
+<center>
+  <div id="errorcode">{{errorcode}}</div>
+  <h2 class="error" style="font-family:serif;">{{error}}</h2>
+</center>
+
+{% ifequal errorcode 404 %}   
+<table border="0" style="margin-left:auto; margin-right:auto; padding: 4em 0 0 0; font-family:serif;">
+  <th align="left"><h2 style="margin:0;">This Is Just To Say</h2></th>
+  <tbody>
+  <tr>
+    <td style="width:20em;">
+          I have eaten
+      <br>the <a href="{{urlpath|attr}}">{{urlpath|urlunquote}}</a>{#truncate when long#}
+      <br>that was in
+      <br>the BigTable
+    </td>
+    <td style="width:20em;">
+          and which
+      <br>you were probably
+      <br>attempting
+      <br>to retrieve
+    </td>
+    <td style="width:8em;">
+          Forgive me
+      <br>it was delicious
+      <br>so sweet
+      <br>and so cold
+    </td>
+  </tr>
+  </tbody>
+</table>
+{% endifequal %}
+
+{% endblock content %}
+

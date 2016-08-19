@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link type="text/css" rel="stylesheet" href="{{base}}static/spool.css">
+  <link type="application/atom+xml" rel="alternate" title="Recently Updated Threads" href="{{base}}atom.xml">
+  <title>{% block title %}{{spool.title}}{% endblock %}</title>
+</head>
+<body>
+
+<div class="wrapper">
+<div id="navbar"><div id="logo"><a href="http://code.google.com/appengine"><img src="{{base}}static/corner.2.3.png"></a></div>
+<div id="navleft"><form action="{{base}}search" method="get" id="searchbox"><input type="text" name="q" tabindex="1"></form>
+<span class="navbutton" onclick="document.getElementById('searchbox').submit()" onmouseover="document.body.style.cursor='pointer'" onmouseout="document.body.style.cursor='default'">I lost it!</span>
+<a class="navbutton" onclick="window.location='http://code.google.com/p/spool/'" onmouseover="document.body.style.cursor='pointer'" onmouseout="document.body.style.cursor='default'" href="http://code.google.com/p/spool/">Get your own spool</a></div>
+<span id="navright">{% if user %}{% if author %}<a href="{{base}}users/{{author|name|urlquote}}">{{author|name}}{% else %}<a href="{{base}}users">Pick a username, {{user}}{% endif %}</a> | {% if author.member %}<a href="{{base}}new">New Thread</a> | {% endif %}<a href="{{sign.url}}">{{sign.label}}</a>{% else %}<a href="{{base}}/users">Sign Up using your Google Account</a> | <a href="{{sign.url}}">{{sign.label}}</a>{% endif %}</span></div>
+
+<div id="main"><div id="container">
+<div id="header">{% block header %}<a href="{{base}}">{{spool.header}}</a>{% endblock %}</div>
+<div id="content">{% block content %}{% endblock %}</div><!--/main-->
+</div></div>
+<div class="push"></div></div>
+<div class="footer">{{spool.footer}}</div>
+{{spool.analytics}}
+</body>
+</html>

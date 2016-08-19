@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}{{spool.prefix}} | New Post{% endblock %}
+
+{% block content %}
+<h2>Post a new thread</h2>
+
+{% if error %}<div class="error">{{error}}</div>{% endif %}
+<form action="/spool/" method="post">
+ <h4>Thread Title:</h4>
+  <input type="text" name="title" value="{{form_title|attr}}">
+ <h4>Thread URL:</h4>
+  <input type="text" name="url" value="{{form_url|attr}}">
+ <h4>Initial Comment:</h4>
+  <textarea id="comment" name="comment" rows="5" cols="65" value="{{form_comment|attr}}"></textarea>
+  <br>
+  <input type="submit" value="Post">
+</form>
+
+{% endblock %}
+

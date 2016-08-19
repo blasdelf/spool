@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}{{spool.prefix}} | {{thread.title}}{% endblock %}
+{% block content %}
+<div class="thread"><div class="thread-heading"><span class="thread-title">{{thread.title}}</span></div>
+<div class="comments">
+
+{% for com in comments %}{% include "comments.html" %}{% endfor %}</div><!--/comments-->
+</div><!--/thread-->
+
+<div class="right context"><a class="reference" href="{{base}}{{thread.created.year}}/{{thread.created.month}}/#{{thread.urltitle|urlquote}}">In context in the archives…</a></div>
+{% if error %}<div class="error right context">{{error}}</div>{% endif %}
+
+{% if thread.closed %}<div class="right closed">This thread is closed to new comments</div>
+{% else %}
+{% if author %}<div class="byline"><div><a href="{{base}}users/{{author|name|urlquote}}">{{author|name}}</a></div></div>{% endif %}
+<div id="commentbox">
+{% if user %}{% if author %}
+  <form action="{{urlpath}}" method="post">
+    <textarea id="comment" name="comment" rows="5" cols="65" value="{{form_comment|attr}}"></textarea>
+      <div><input type="submit" value="Post">
+      {% if author.member %}<input type="checkbox" id="upfront" name="upfront" {{form_upfront}}> <label for="upfront">Display on front page?</label>{% else %}<span>Your comments will only show up on this page</span>{% endif %}</div>
+  </form>
+{% else %}{# user does not have a author record, replace links with a scripted iframe later #}
+<p>You are authenticated as {{user.email}}, but you still need to <a href="{{base}}users">create an alias for yourself</a> to be able to comment</p>{% endif %}{#author#}
+{% else %}{# user is not logged in #}<p><a href="{{sign.url}}">Login</a> to post comments, you can <a href="{{base}}/users">create a username</a> tied to your Google Account.</p>
+{% endif %}</div><!-- /commentform -->
+{% endif %}
+  
+{% endblock %}

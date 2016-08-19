@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+
+{# switch to django1.0 templates to get (for thread, com in threads) #}
+<div id="threads">{% for pair in threads %}
+
+<div class="thread"><div class="thread-heading"><a href="{{base}}{{pair.0|name}}/{{pair.0.urltitle|urlquote}}"><span class="thread-title">{{pair.0.title}}</span></a></div><div class="comments">{% for com in pair.1 %} {% include "comments.html" %}{% endfor %}</div><!--/comments-->
+<a class="right thread-byline" href="{{base}}{{pair.0|name}}/{{pair.0.urltitle|urlquote}}">{{pair.1|hidden}} more comment{{pair.1|hidden|pluralize}} inside</a></div><!--/thread-->
+{% endfor %}
+
+</div><!--/threads-->
+<div class="refbox">
+{% if earlier %}<a style="float:left;" class="reference" href="{{earlier.link}}">Earlier: {{earlier.format}}</a>{% endif %}
+</div>
+{% endblock %}

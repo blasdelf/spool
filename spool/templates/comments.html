@@ -1,0 +1,8 @@
+ {% if not com.snuffed %}{% if com.upfront or threadpage %}<div class="comment">{% if threadpage %}<a name="{{forloop.counter}}"></a>{% endif %}
+  <div class="byline"><div><a title="{{com.creator|name|attr}}" href="{{base}}users/{{com.creator|name|urlquote}}">{{com.creator|name}}</a></div>
+    <a href="#{{forloop.counter}}" title="{{com.created|tz|rfc3339}}">
+    <div class="nowrap">{% if not com.created|today %}{{com.created|tz|date:"M j"}}, {% endif %}<span class="time">{{com.created|tz|time:"g:iA"|lower}}</span></div></a></div>
+  <div class="{% if com.upfront %}upfront {% endif %}commentbody {{com.bodytype}}">
+{{com.bodytext}}
+ <div class="spacer"></div></div></div>{% endif %}{% endif %}
+

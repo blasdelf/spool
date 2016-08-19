@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}{{spool.prefix}} | {% if editpage %}{{editpage|name}}{% endif %}{% if userpage %}{{userpage|name}}{% endif %}{% if signup %}Sign Up{% endif %}{% if allusers %}All Users{% endif %}{% endblock %}
+
+{% block content %}
+
+{% if editpage %}<h2>Edit your account:</h2>
+<form action="{{editpage|name|urlquote}}" method="post">{% if error %}<div class="error">{{error}}</div>{% endif %}
+ <h4>Email: {{editpage.uid.email|email}}</h4>
+ <h4>Username: {{editpage|name}}</h4>
+ <h4>Full Name: <input type="text" name="fullname" value="{{editpage.fullname|attr}}"></h4>
+ <div><input type="submit" value="Update"></div>
+</form>
+{% endif %}
+
+{% if userpage %}<h2>User Page:</h2>
+{% if author %}<h4>Email: {{editpage.uid.email|email}}</h4>{% endif %}
+<h4>Username: {{userpage|name}}</h4>
+<h4>Full Name: {{userpage.fullname}}</h4>
+{% endif %}
+
+{% if signup %}<h2>Create an account:</h2>
+<form action="users" method="post">{% if error %}<div class="error">{{error}}</div>{% endif %}
+ <h4>Email: {{user.email|email}}</h4>
+ <h4>Username: <input type="text" name="nick" value="{{nick|attr}}"> <span style="color:red;">You can't change this later!</span></h4>
+ <h4>Full Name: <input type="text" name="fullname" value="{{fullname|attr}}"></h4>
+ <input type="hidden" value="{{redirect|attr}}" name="redirect">
+ <div><input type="submit" value="Add"></div>
+</form>
+{% endif %}
+
+{% if allusers %}<h2>All Users:</h2><ol>
+{% for user in allusers %} <li><a href="{{base}}users/{{user|name|urlquote}}">{{user|name}}</a>{% endfor %}
+</ol>{% endif %}
+
+{% endblock %}

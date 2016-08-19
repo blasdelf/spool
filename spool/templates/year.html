@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}{{spool.prefix}} | {{year}}{% endblock %}
+{% block content %}
+<div class="archive-heading">Archives for {{year}}:</div>
+<div id="threads">
+{% if threads %}{% for pair in threads %}
+<div class="comment">
+  <div class="byline"><div>from <a href="{{base}}users/{{pair.0.creator|name|urlquote}}">{{pair.0.creator|name}}</a></div><a href="#{{forloop.counter}}">
+                      <div class="nowrap"><span class="time">{{pair.0.created|tz|time:"g:iA"|lower}} {{pair.0.created|tz|date:"T"|lower}}</span></div>
+                      <div class="nowrap">{{pair.0.created|date:"F j"}}</div></a></div>
+  <div class="upfront commentbody"><a href="{{base}}{{pair.0|name}}/{{pair.0.urltitle|urlquote}}" name="{{pair.0.urltitle}|urlquote}">
+    <span class="thread-title">{{pair.0.title}}</span><br>
+    <span class="thread-byline">{{pair.1|length}} Comments</span></a>
+    <div class="spacer"></div></div>
+</div>
+{% endfor %}
+{% else %}
+<span class="error">No threads found</span>
+{% endif %}
+</div>
+<div class="refbox">
+{% if earlier %}<a style="float:left;" class="reference" href="{{earlier.link}}">Earlier: {{earlier.format}}</a>{% endif %}
+{% if later %}<a style="float:right;" class="reference" href="{{later.link}}">Later: {{later.format}}</a>{% endif %}
+</div>
+{% endblock %}

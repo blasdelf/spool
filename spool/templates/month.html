@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}{{spool.prefix}} | {{month}} {{year}}{% endblock %}
+{% block content %}
+<div class="archive-heading">Archives for {{month}} <a class="reference" href="{{base}}{{year}}/">{{year}}</a>:</div>
+{% if threads %}
+<div id="threads">{% for pair in threads %}
+<div class="thread">
+  <div class="thread-heading"><a href="{{base}}{{pair.0|name}}/{{pair.0.urltitle|urlquote}}"><span class="thread-title">{{pair.0.title}}</span></a></div>
+<div class="comments">{% for com in pair.1 %} {% include "comments.html" %}
+{% endfor %}</div><a class="right thread-byline" href="{{base}}{{pair.0|name}}/{{pair.0.urltitle|urlquote}}">{{pair.1|hidden}} more comment{{pair.1|hidden|pluralize}} inside</a>
+</div><!-- /thread -->
+{% endfor %}</div><!-- /threads -->
+{% else %}
+<span class="error">No threads found</span>
+{% endif %}
+<div class="refbox">
+{% if earlier %}<a style="float:left;" class="reference" href="{{earlier.link}}">Earlier: {{earlier.format}}</a>{% endif %}
+{% if later %}<a style="float:right;" class="reference" href="{{later.link}}">Later: {{later.format}}</a>{% endif %}
+</div>
+{% endblock %}
